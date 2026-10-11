@@ -4,7 +4,7 @@
 
 Built for **HackNC 2026**, Klane turns public project signals into a contractor’s next practical conversation. Describe your trade and territory, explore potential buyers on a map, inspect their sources, and plan a proposed work package—or text the same research assistant from the field.
 
-**[Klane Demo Video — YouTube]([https://youtube.com/](https://www.youtube.com/watch?v=Pd8Jszdwcus))** · **[Project Domain — klane.tech (Not Currently Used!)](https://klane.tech)**
+**[Klane Demo Video — YouTube](https://www.youtube.com/watch?v=Pd8Jszdwcus)** · **[Project Domain — klane.tech (Not Currently Used!)](https://klane.tech)**
 
 ## A look inside
 
