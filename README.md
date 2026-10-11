@@ -4,9 +4,7 @@
 
 Built for **HackNC 2026**, Klane turns public project signals into a contractor’s next practical conversation. Describe your trade and territory, explore potential buyers on a map, inspect their sources, and plan a proposed work package—or text the same research assistant from the field.
 
-**[Demo video — YouTube placeholder](https://youtube.com/)** · **[Project domain — klane.tech](https://klane.tech)**
-
-The video link is a placeholder. `klane.tech` has been acquired; the application is not hosted there yet.
+**[Klane Demo Video — YouTube]([https://youtube.com/](https://www.youtube.com/watch?v=Pd8Jszdwcus))** · **[Project Domain — klane.tech (Not Currently Used!)](https://klane.tech)**
 
 ## A look inside
 
@@ -207,10 +205,6 @@ npm run integrations:check
 ```
 
 `npm run integrations:smoke` makes live provider requests and can consume quota. See [the two-minute demo flow](DEMO-FLOW.md) for recording notes.
-
-## Credentials and deployment
-
-Only `.env.example` is included. Local environment files, ADC credentials, private keys, integration status, generated builds, and dependencies are excluded from Git. Never put provider secrets in `VITE_` variables or frontend code. The demo profile switcher is not production authentication. A deployed backend requires the authenticated gateway described in `.env.example`, trusted account identity, and appropriate database network access.
 
 ## AI disclosure
 
