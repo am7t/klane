@@ -208,4 +208,4 @@ npm run integrations:check
 
 ## AI disclosure
 
-**6.1 Sol was used for coding assistance**, including implementation, debugging, interface iteration, tests, and documentation. Project direction, priorities, integration choices, and review were guided by the project creator. Runtime AI features use the Gemini and ElevenLabs integrations described above.
+**OpenAI ChatGPT 6.1 Sol was used for coding assistance**, including implementation, debugging, interface iteration, tests, and documentation. Project direction, priorities, integration choices, and review were guided by the project creator. Runtime AI features use the Gemini and ElevenLabs integrations described above.
