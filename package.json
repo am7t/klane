@@ -1,0 +1,44 @@
+{
+  "name": "klane",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1",
+    "build": "tsc --noEmit && vite build",
+    "test": "vitest run",
+    "server": "node --env-file-if-exists=.env server/index.mjs",
+    "photon": "node --env-file-if-exists=.env server/photon-agent.mjs",
+    "db:migrate": "node --env-file-if-exists=.env server/migrate.mjs",
+    "warehouse:schema": "node --env-file-if-exists=.env server/warehouse.mjs --schema",
+    "warehouse:sync": "node --env-file-if-exists=.env server/warehouse.mjs",
+    "integrations:check": "node --env-file-if-exists=.env server/smoke.mjs",
+    "integrations:smoke": "node --env-file-if-exists=.env server/smoke.mjs --live",
+    "permits:import": "node --env-file-if-exists=.env server/import-permits.mjs",
+    "prices:import": "node --env-file-if-exists=.env server/import-comparables.mjs"
+  },
+  "dependencies": {
+    "@elevenlabs/client": "^1.27.0",
+    "@spectrum-ts/core": "^12.10.1",
+    "@spectrum-ts/imessage": "^12.10.1",
+    "google-auth-library": "^10.9.1",
+    "lucide-react": "^0.468.0",
+    "maplibre-gl": "^6.13.0",
+    "pg": "^8.23.1",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "zod": "^3.24.0"
+  },
+  "devDependencies": {
+    "@testing-library/react": "^16.3.3",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "jsdom": "^29.1.1",
+    "typescript": "^5.7.0",
+    "vite": "^6.1.0",
+    "vitest": "^4.1.11"
+  },
+  "overrides": {
+    "@opentelemetry/core": "^2.8.0"
+  }
+}

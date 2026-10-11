@@ -1,0 +1,7 @@
+import {readFile} from 'node:fs/promises';
+import {z} from 'zod';
+import {statement} from './integrations/snowflake.mjs';
+const file=process.argv[2];if(!file)throw new Error('Provide a JSON file of actual, verified completed-job records.');
+const records=z.array(z.object({jobId:z.string().max(100),city:z.enum(['Raleigh','Durham','Cary']),service:z.string().max(100),unit:z.string().max(40),scopeClass:z.string().max(100),completedAt:z.string().regex(/^\d{4}-\d{2}-\d{2}$/),units:z.number().positive(),contractValue:z.number().positive(),directCost:z.number().nonnegative(),sourceUrl:z.string().url().refine(s=>s.startsWith('https://')),verified:z.literal(true)})).max(200).parse(JSON.parse(await readFile(file,'utf8')));
+for(const r of records)await statement(`MERGE INTO KLANE_JOB_COMPARABLES t USING (SELECT ? AS JOB_ID,? AS CITY,? AS SERVICE,? AS UNIT,? AS SCOPE_CLASS,TO_DATE(?) AS COMPLETED_AT,? AS UNITS,? AS CONTRACT_VALUE,? AS DIRECT_COST,? AS SOURCE_URL) s ON t.JOB_ID=s.JOB_ID WHEN NOT MATCHED THEN INSERT (JOB_ID,CITY,SERVICE,UNIT,SCOPE_CLASS,COMPLETED_AT,UNITS,CONTRACT_VALUE,DIRECT_COST,SOURCE_URL,VERIFIED) VALUES(s.JOB_ID,s.CITY,s.SERVICE,s.UNIT,s.SCOPE_CLASS,s.COMPLETED_AT,s.UNITS,s.CONTRACT_VALUE,s.DIRECT_COST,s.SOURCE_URL,TRUE)`,[r.jobId,r.city,r.service,r.unit,r.scopeClass,r.completedAt,r.units,r.contractValue,r.directCost,r.sourceUrl]);
+console.log(`${records.length} verified records imported. No synthetic market data was added.`);

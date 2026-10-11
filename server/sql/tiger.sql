@@ -1,0 +1,10 @@
+CREATE EXTENSION IF NOT EXISTS timescaledb;
+CREATE TABLE IF NOT EXISTS klane_accounts(account_id text PRIMARY KEY, profile jsonb NOT NULL, updated_at timestamptz NOT NULL DEFAULT now());
+CREATE TABLE IF NOT EXISTS klane_companies(account_id text NOT NULL, company_id text NOT NULL, payload jsonb NOT NULL, updated_at timestamptz NOT NULL DEFAULT now(), PRIMARY KEY(account_id,company_id));
+CREATE TABLE IF NOT EXISTS klane_signal_events(account_id text NOT NULL, event_id text NOT NULL, company_id text NOT NULL, observed_at timestamptz NOT NULL, collected_at timestamptz NOT NULL DEFAULT now(), city text NOT NULL, service text NOT NULL, kind text NOT NULL, status text NOT NULL, confidence double precision NOT NULL, source_url text, payload jsonb NOT NULL, PRIMARY KEY(account_id,event_id,observed_at));
+SELECT create_hypertable('klane_signal_events',by_range('observed_at'),if_not_exists=>TRUE);
+CREATE INDEX IF NOT EXISTS klane_signal_account_time ON klane_signal_events(account_id,observed_at DESC);
+CREATE TABLE IF NOT EXISTS klane_messages(account_id text NOT NULL, session_id text NOT NULL, role text NOT NULL, body text NOT NULL, created_at timestamptz NOT NULL DEFAULT now());
+CREATE TABLE IF NOT EXISTS klane_message_receipts(event_id text PRIMARY KEY, response text, handled_at timestamptz DEFAULT now());
+CREATE TABLE IF NOT EXISTS klane_delivery_receipts(account_id text NOT NULL, request_id text NOT NULL, status text NOT NULL, payload jsonb NOT NULL, created_at timestamptz DEFAULT now(), PRIMARY KEY(account_id,request_id));
+CREATE TABLE IF NOT EXISTS klane_warehouse_outbox(id bigserial PRIMARY KEY, account_id text NOT NULL, payload jsonb NOT NULL, created_at timestamptz DEFAULT now(), synced_at timestamptz);

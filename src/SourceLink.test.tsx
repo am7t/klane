@@ -1,0 +1,5 @@
+import {it,expect} from 'vitest';
+import {sourcePresentation} from './SourceLink';
+it('uses descriptive document metadata while keeping the destination visible',()=>{expect(sourcePresentation('https://raleighnc.gov/docs/roof-repair.pdf','Convention center roof repair')).toMatchObject({label:'Convention center roof repair',kind:'PDF document',url:'raleighnc.gov/docs/roof-repair.pdf'})});
+it('skips numeric and UUID path segments instead of showing identifiers as titles',()=>{expect(sourcePresentation('https://cvent.com/venues/atlantic-union-bank-convention-center/venue-691c2735-9222-44bd-b829-9dc1db5eb63c','cvent.com').label).toBe('Atlantic union bank convention center');expect(sourcePresentation('https://visitraleigh.com/listing/atlantic-union-bank-convention-center/67069','visitraleigh.com').label).toBe('Atlantic union bank convention center')});
+it('uses the evidence claim for domain-only titles without fabricating a publisher headline',()=>{expect(sourcePresentation('https://raleighnc.gov/','raleighnc.gov','Roof repair procurement · September 2026').label).toBe('Roof repair procurement · September 2026')});

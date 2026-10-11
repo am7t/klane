@@ -1,0 +1,2 @@
+export type EstimateInputs={units:number;bidRate:number;materialRate:number;crew:number;productivity:number;hourlyLabor:number;equipment:number;overhead:number;contingency:number};
+export function estimateJob(input:EstimateInputs):null|{days:number;labor:number;materials:number;equipment:number;overheadCost:number;reserve:number;total:number;revenue:number;profit:number;margin:number|null;breakEven:number};

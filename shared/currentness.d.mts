@@ -1,0 +1,1 @@
+export function isCurrentOpportunity(company: {signals: {observedAt:string;claim:string;excerpt:string;sourceUrl?:string;status?:string}[];availability?:{status:string;evidenceDate:string;sourceUrl:string;deadline?:string}}, now?:number):boolean;

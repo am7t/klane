@@ -1,0 +1,5 @@
+import {it,expect} from 'vitest';
+import {mergeDiscovery,sameProject} from './discovery-merge.mjs';
+const first={id:'original',name:'NC State University - Koch Hall',address:'890 Oval Drive, Raleigh NC',signals:[{sourceUrl:'https://ncsu.edu/project',claim:'Roof replacement'}],sources:[{uri:'https://ncsu.edu/site'}]};
+it('merges additional facts for one worksite rather than counting renamed duplicates as new buyers',()=>{const list=[first];expect(mergeDiscovery(list,{...first,id:'new',name:'North Carolina State University - Engineering Building II',address:'890 Oval Dr, Raleigh NC',signals:[...first.signals,{sourceUrl:'https://ncsu.edu/project',claim:'Project budget $2m'}],sources:[...first.sources,{uri:'https://wake.gov/address'}]})).toBe(false);expect(list).toHaveLength(1);expect(list[0].signals).toHaveLength(2);expect(list[0].sources).toHaveLength(2)});
+it('keeps different worksites at the same institution as separate prospects',()=>expect(sameProject(first,{...first,id:'weaver',name:'NC State University - Weaver Labs',address:'3110 Faucette Drive Raleigh NC'})).toBe(false));

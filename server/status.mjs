@@ -1,0 +1,4 @@
+import {verification} from './verification.mjs';
+import {geminiConfigured} from './integrations/google-auth.mjs';
+const providers={gemini:['GEMINI_API_KEY'],photon:['PHOTON_PROJECT_ID','PHOTON_PROJECT_SECRET'],tiger:['TIGER_DATABASE_URL'],snowflake:['SNOWFLAKE_HOST','SNOWFLAKE_TOKEN','SNOWFLAKE_WAREHOUSE','SNOWFLAKE_DATABASE'],elevenlabs:['ELEVENLABS_API_KEY','ELEVENLABS_VOICE_ID']};
+export function integrationStatus(){return Object.entries(providers).map(([provider,keys])=>{const configured=provider==='gemini'?geminiConfigured():keys.every(k=>!!process.env[k]);const checked=configured?verification(provider):null;return {provider,configured,status:!configured?'credentials needed':checked?(checked.passed?'live connection verified':'connection test failed'):'configured — connection untested',...(checked?{checkedAt:new Date(checked.at).toISOString()}:{})}})}
